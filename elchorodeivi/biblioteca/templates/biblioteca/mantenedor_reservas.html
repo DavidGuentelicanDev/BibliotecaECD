@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Listado de reservas
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!--tabla usuarios-->
+    <div class="mb-2 mx-2 mt-2">
+        <h1>Reservas</h1>
+        <a class="btn btn-success" href="{% url 'reserva_crear' %}">Crear reserva</a>
+    </div>
+    <div class="table-responsive mt-2 mb-2 mx-2" >
+        <table class="table table-dark table-striped table-hover table-fixed-header">
+            <thead>
+                <th scope="col">N° Reserva</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad de libros</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Fecha de reserva</th>
+                <th scope="col">Fecha de compromiso</th>
+                <th scope="col">"Lista para retiro"</th>
+                <th scope="col">Fecha máxima de retiro</th>
+                <th scope="col">Fecha de retiro</th>
+                <th scope="col">Fecha de devolución programada</th>
+                <th scope="col">Fecha de devolución real</th>
+                <th scope="col">Fecha de cancelación</th>
+                <th scope="col">Última actualización</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Eliminar</th>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <th scope="row">{{ reserva.numero_reserva }}</th>
+                        <td scope="row">{{ reserva.usuario.username }}</td>
+                        <td scope="row">{{ reserva.usuario.first_name }} {{ reserva.usuario.last_name }}</td>
+                        <td scope="row">{{ reserva.cantidad_libros }}</td>
+                        <td scope="row">{{ reserva.fec_creacion|date:"d/m/Y H:i" }}</td>
+                        <td scope="row">{{ reserva.fec_reserva|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_compromiso|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_listo_ret|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_max_ret|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_retiro|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_dev_prog|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_dev_real|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.fec_cancelacion|date:"d/m/Y"|default:"" }}</td>
+                        <td scope="row">{{ reserva.ult_actualizacion|date:"d/m/Y H:i" }}</td>
+                        <td scope="row">{{ reserva.get_estado_reserva_display }}</td>
+                        <td scope="row"><a type="button" class="btn btn-warning" href="{% url 'reserva_detalle' reserva.numero_reserva %}">Detalles</a></td>
+                        <td scope="row"><button type="button" class="btn btn-danger btn-eliminar-reserva" data-numero-reserva="{{ reserva.numero_reserva }}">Eliminar</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/eliminar_reserva.js' %}"></script>
+    <script>const csrfToken = '{{ csrf_token }}';</script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Detalle de reserva
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="mt-5 mb-3 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-3">
+                    <h2 class="mt-3 mb-3">Detalle de la reserva</h2>
+                        <div class="card">
+                            <ul>
+                                <li class="mt-2"><strong>Reserva N°:</strong> {{ reserva.numero_reserva }}</li>
+                                <li class="mt-2"><strong>Usuario:</strong> {{ reserva.usuario }}</li>
+                                <li class="mt-2"><strong>Nombre:</strong> {{ reserva.usuario.first_name }} {{ reserva.usuario.last_name }}</li>
+                                <li class="mt-2"><strong>Fecha de creación:</strong> {{ reserva.fec_creacion }}</li>
+                                <li class="mt-2"><strong>Cantidad de libros:</strong> {{ reserva.cantidad_libros }}</li>
+                                <li class="mt-2"><strong>Estado:</strong> {{ reserva.get_estado_reserva_display }}</li>
+                            </ul>
+                            {% if reserva.estado_reserva == 'R' %}
+                                <form class="form-estado mt-1 mx-2" data-estado="LR" data-numero-reserva="{{ reserva.numero_reserva }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-info btn-lista-retiro">Lista para retiro</button>
+                                </form>
+                            {% elif reserva.estado_reserva == 'LR' %}
+                                <form class="form-estado mt-1 mx-2" data-estado="CO" data-numero-reserva="{{ reserva.numero_reserva }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-info btn-retirada">Retirada</button>
+                                </form>
+                            {% elif reserva.estado_reserva == 'CO' %}
+                                <form class="form-estado mt-1 mx-2" data-estado="D" data-numero-reserva="{{ reserva.numero_reserva }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-info btn-devuelta">Devuelta</button>
+                                </form>
+                            {% endif %}
+                            <form class="form-estado mt-1 mx-2" data-estado="CA" data-numero-reserva="{{ reserva.numero_reserva }}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-dark btn-cancelar mb-2 mt-1">Cancelar</button>
+                            </form>
+                        </div>
+                    {% if reserva.estado_reserva == 'P' or reserva.estado_reserva == 'R' %}
+                        <a href="{% url 'libro_agregar' reserva.pk %}" class="btn btn-danger mt-3">Agregar libro</a>
+                    {% endif %}
+                    <a href="{% url 'reservas_mantenedor' %}" class="btn btn-warning mt-3">Volver</a>
+                </div>
+            </div>
+            <div class="mb-5 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-3">
+                    <h2 class="mt-3 mb-3">Libros Agregados</h2>
+                    <div class="card">
+                        <table class="table mt-1">
+                            <thead>
+                                <tr>
+                                    <th>Portada</th>
+                                    <th>Título</th>
+                                    <th>Autor</th>
+                                    <th>Editorial</th>
+                                    <th>Categoría</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            {% for detalle in libros_reserva %}
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {% if detalle.libro.portada %}
+                                                <img src="{% static detalle.libro.portada %}" alt="Portada de {{ detalle.libro.titulo }}" style="width: 50px; height: 75px;">
+                                            {% else %}
+                                                <img src="{% static 'assets/libro_generico.jpg' %}" alt="Portada de {{ detalle.libro.titulo }}" style="width: 50px; height: 75px;">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ detalle.libro.titulo }}</td>
+                                        <td>{{ detalle.libro.autor }}</td>
+                                        <td>{{ detalle.libro.editorial }}</td>
+                                        <td>{{ detalle.libro.get_categoria_display }}</td>
+                                        <td>
+                                            {% if reserva.estado_reserva == 'P' or reserva.estado_reserva == 'R' %}
+                                                <form method="post" class="form-eliminar" data-libro-codigo="{{ detalle.libro.codigo }}" data-numero-reserva="{{ reserva.numero_reserva }}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger btn-eliminar">Eliminar</button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            {% empty %}
+                                <p class="mb-2 mt-2 mx-2"><strong>No se han agregado libros a esta reserva.</strong></p>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/eliminar_detalle.js' %}"></script>
+    <script src="{% static 'js/editar_estado_reserva.js' %}"></script>
+{% endblock %}

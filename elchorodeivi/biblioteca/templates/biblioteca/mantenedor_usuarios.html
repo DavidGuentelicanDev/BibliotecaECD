@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Listado de usuarios
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!--tabla usuarios-->
+    <div class="mb-2 mx-2 mt-2">
+        <h1>Usuarios</h1>
+        <a class="btn btn-success" href="{% url 'usuario_crear' %}">Crear usuario</a>
+    </div>
+    <div class="table-responsive mt-2 mb-2 mx-1">
+        <table class="table table-dark table-striped table-hover table-fixed-header">
+            <thead>
+                <th scope="col">Rut</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Detalles</th>
+                <th scope="col">Eliminar</th>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td scope="row">{{ usuario.rut }}</td>
+                        <td scope="row">{{ usuario.first_name }}</td>
+                        <td scope="row">{{ usuario.last_name }}</td>
+                        <td scope="row">{{ usuario.email }}</td>
+                        {% if usuario.telefono %}
+                            <td scope="row">{{ usuario.telefono }}</td>
+                        {% else %}
+                            <td scope="row"></td>
+                        {% endif %}
+                        {% if usuario.direccion %}
+                            <td scope="row">{{ usuario.direccion }}</td>
+                        {% else %}
+                            <td scope="row"></td>
+                        {% endif %}
+                        {% if usuario.comuna %}
+                            <td scope="row">{{ usuario.comuna }}</td>
+                        {% else %}
+                            <td scope="row"></td>
+                        {% endif %}
+                        <td scope="row"><a type="button" class="btn btn-warning" href="{% url 'usuario_editar' username=usuario.username %}">Detalles</a></td>
+                        <td scope="row"><button type="button" class="btn btn-danger btn-eliminar-usuario" data-usuario-id="{{ usuario.username }}">Eliminar</button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/eliminar_usuario.js' %}"></script>
+    <script>const csrfToken = '{{ csrf_token }}';</script>
+{% endblock %}

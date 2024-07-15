@@ -1,0 +1,62 @@
+.opciones {
+    width: 250px;
+    text-align: center;
+}
+
+.opciones_login {
+    width: 250px;
+    text-align: center;
+}
+
+.background_final {
+    background-color: rgb(203, 241, 187);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.image-container {
+    width: 100%;
+    height: 200px; /* Ajusta según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.card .btn {
+    margin-top: auto;
+}
+
+.content-background {
+    background-image: url("../assets/bg_libros.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

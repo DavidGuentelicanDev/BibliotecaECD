@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Portal Administración
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!--opciones CRUD adminfun-->
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="container text-center mt-4 mb-4 grid_registro_contenido">
+                <div class="row mt-2 mb-2">
+                    <div class="col">
+                        <div class="card admin_tamano">
+                            <a href="{% url 'libros_mantenedor' %}"><img src="{% static 'assets/libros.avif' %}" class="card-img-top imagen_admin" alt="..."></a>
+                            <div class="">
+                                <p class="card-text"><strong>Mantenedor de Libros</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card admin_tamano">
+                            <a href="{% url 'usuarios_mantenedor' %}"><img src="{% static 'assets/usuarios.png' %}" class="card-img-top imagen_admin" alt="..."></a>
+                            <div class="">
+                                <p class="card-text"><strong>Mantenedor de Usuarios</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card admin_tamano">
+                            <a href="{% url 'reservas_mantenedor' %}"><img src="{% static 'assets/reservas.jpg' %}" class="card-img-top imagen_admin" alt="..."></a>
+                            <div class="">
+                                <p class="card-text"><strong>Mantenedor de Reservas</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src=""></script>
+{% endblock %}

@@ -1,0 +1,311 @@
+/*datatables*/
+
+.dataTables_wrapper .dataTables_filter {
+    color: #000000 !important;
+}
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_info {
+    color: #000000 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #000000 !important;
+}
+
+/*clases de index*/
+.background_buscar {
+    background-image: url("/static/assets/bg_libros.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    height: 350px;
+}
+
+.grid_buscar {
+    display: grid;
+    place-items: center;
+}
+
+.grid_buscar_contenido {
+    margin: auto;
+    width: 50%;
+}
+
+
+/* Mostrar el contenedor solo si hay sugerencias */
+.sugerencias-container {
+    margin-top: 1px !important; /* Espacio entre el campo de búsqueda y las sugerencias */
+    display: none; /* Ocultar el contenedor por defecto */
+    padding: 5px; /* Espacio alrededor del contenedor */
+}
+
+.sugerencias {
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 5px; /* Espacio interno */
+}
+
+.sugerencias-container .sugerencia {
+    display: block;
+    padding: 5px; /* Espacio alrededor del texto */
+    transition: background-color 0.3s; /* Transición suave para el cambio de color de fondo */
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: #000000; /* Color del texto */
+    margin-bottom: -5px; /* Eliminar el espacio entre sugerencias */
+}
+
+.sugerencias-container .sugerencia:hover {
+    background-color: #f0f0f0; /* Cambiar el color de fondo al pasar el mouse */
+    cursor: pointer; /* Cambiar el cursor a una mano para indicar que es clickable */
+}
+
+.sugerencias-container .sugerencia a {
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: #000000; /* Color del texto */
+}
+
+
+.mismo-tamano {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.imagen_tarjeta {
+    height: 400px;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 10px;
+    height: 280px;
+}
+
+.justificado {
+    text-align: justify;
+}
+
+.boton_tarjeta_index {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.opciones {
+    width: 250px;
+    text-align: center;
+}
+
+.opciones_login {
+    width: 250px;
+    text-align: center;
+}
+
+.background_final {
+    background-color: rgb(203, 241, 187);
+}
+
+/* index cliente */
+
+.cliente_tamano {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.imagen_cliente {
+    height: 400px;
+}
+
+/* index adminfun */
+
+.admin_tamano {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.imagen_admin {
+    height: 400px;
+}
+
+/*clases del registro*/
+.background_registrarse {
+    background-image: url("../assets/bg_libros.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.grid_registro {
+    display: grid;
+    place-items: center;
+}
+
+.grid_registro_contenido {
+    margin: auto;
+    width: 50%;
+    background-color: rgb(68, 112, 86);
+    color: white;
+    border-radius: 2%;
+}
+
+.margen_registro {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+/*clases del reseteo contraseña*/
+.background_inicio_sesion {
+    background-image: url("../assets/bg_libros.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+.grid_inicio_sesion {
+    display: grid;
+    place-items: center;
+}
+
+.grid_iniciosesion_contenido {
+    margin: auto;
+    width: 40%;
+    background-color: rgb(68, 112, 86);
+    color: white;
+    border-radius: 1%;
+}
+
+.margen_inicio_sesion {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.boton_modal {
+    margin-left: 1%;
+}
+
+/* libros */
+.imagen_tarjeta_libro {
+    height: 200px;
+    width: 100%;
+}
+
+/* listar */
+.texto_izq {
+    text-align: left;
+}
+
+.boton {
+    width: 100%;
+}
+
+/* ficha libro*/
+
+
+/* Reservas cliente */
+
+.tracking {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    flex: 1 1 auto;
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.step::before {
+    content: "";
+    width: 100%;
+    height: 4px;
+    background: #ddd;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: -1;
+}
+
+.step.active::before, .step.completed::before {
+    background: #007bff;
+}
+
+.step:first-child::before {
+    display: none;
+}
+
+.step::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ddd;
+    border: 2px solid #007bff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.step.active::after, .step.completed::after {
+    background: #007bff;
+}
+
+.step.active {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.step.completed {
+    color: #000000;
+}
+
+.step-text {
+    position: relative;
+    top: 30px;
+    display: block;
+}
+
+.step.canceled::after {
+    background: red;
+}
+
+/* Estilo para círculos fuera de tiempo */
+.step.out-of-time::after {
+    background: red;
+}
+
+/* card-body de la reserva de cliente */
+.card-cuerpo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    overflow: hidden;
+    height: auto;
+}
+
+.img-reserva {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.titulo-blanco {
+    color: white;
+}

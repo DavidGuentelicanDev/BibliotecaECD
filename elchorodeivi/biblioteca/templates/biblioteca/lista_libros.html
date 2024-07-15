@@ -1,0 +1,95 @@
+{% extends 'base_libros.html' %}
+
+{% block title %}
+    Libros
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="pb-3 mt-3 mx-5 d-flex align-items-end">
+        <select id="categoria-filter" class="form-select me-2">
+            <option value="">Todas las Categorías</option>
+            {% for key, value in categorias %}
+                <option value="{{ key }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <select id="autor-filter" class="form-select me-2">
+            <option value="">Todos los Autores</option>
+            {% for autor in autores %}
+                <option value="{{ autor }}">{{ autor }}</option>
+            {% endfor %}
+        </select>
+        <select id="editorial-filter" class="form-select me-2">
+            <option value="">Todas las Editoriales</option>
+            {% for editorial in editoriales %}
+                <option value="{{ editorial }}">{{ editorial }}</option>
+            {% endfor %}
+        </select>
+        <button id="filter-btn" class="btn btn-dark">Filtrar</button>
+    </div>
+    <div class="content-background pb-3">
+        {% if not libros %}
+            <div class="text-center mx-5 mb-2">
+                <br>
+                <div class="card" style="width: 300px;">
+                    <div class="card-body">
+                        No se encontraron coincidencias.
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center mt-3 mx-5">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3">
+                    {% for libro in libros %}
+                        <div class="col d-flex align-items-stretch">
+                            <div class="card mb-3 h-100">
+                                {% if libro.portada %}
+                                    <img src="{% static libro.portada %}" class="card-img-top" alt="Portada de {{ libro.titulo }}">
+                                {% else %}
+                                    <img src="{% static 'assets/libro_generico.jpg' %}" class="card-img-top" alt="Imagen por defecto">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ libro.titulo }}</h5>
+                                    <a href="{% url 'ficha_libro' libro.codigo %}" libro.id class="btn btn-primary">Ir al libro</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="container text-center mt-3">
+        <nav aria-label="Page navigation example" style="margin: 0 auto; display: table;">
+            <ul class="pagination">
+                {% if libros.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ libros.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for i in libros.paginator.page_range %}
+                    {% if libros.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if libros.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ libros.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/lista_libros.js' %}"></script>
+{% endblock %}

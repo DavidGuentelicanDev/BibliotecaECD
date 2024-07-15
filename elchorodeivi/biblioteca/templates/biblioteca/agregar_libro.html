@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Agregar libro
+{% endblock %}
+
+{% block content %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="mt-5 mb-5 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-3">
+                    <h2 class="mt-3 mb-3">Agregar Libro a la Reserva</h2>
+                    <form id="form_agregarLibro" method="post" action="{% url 'libro_agregar' reserva.pk %}" class="mb-3">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-danger" id="btn_agregarLibro">Agregar</button>
+                        <a href="{% url 'reserva_detalle' reserva.numero_reserva %}" class="btn btn-warning">Volver</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/agregar_libro.js' %}"></script>
+{% endblock %}

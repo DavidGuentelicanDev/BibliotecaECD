@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Cambiar Contraseña
+{% endblock %}
+
+{% block content %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="mt-5 mb-5 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-3">
+                    <h2 class="mt-3 mb-3">Cambiar Contraseña</h2>
+                    <form class="form_cambiarContrasena" method="POST" action="{% url 'cambiar_contrasena' %}">
+                        {% csrf_token %}
+                        {{ form_contrasena.as_p }}
+                        <div class="mt-3 mb-3">
+                            <button type="submit" name="cambiarContrasena" class="btn btn-danger btn_cambiarContrasena">Cambiar contraseña</button>
+                        </div>
+                    </form>
+                    <a type="button" class="btn btn-warning mb-3" href="{% url 'index' %}">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/cambiar_contrasena.js' %}"></script>
+{% endblock %}

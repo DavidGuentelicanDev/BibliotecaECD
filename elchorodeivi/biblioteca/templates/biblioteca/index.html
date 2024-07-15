@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Biblioteca ECD
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!--buscar-->
+    <div class="background_buscar">
+        <div class="grid_buscar">
+            <br><br><br><br><br><br>
+            <div class="grid_buscar_contenido">
+                <form class="d-flex" id="form_buscar" role="search">
+                    <input class="form-control me-2" type="search" id="txt_buscar" placeholder="Buscar" aria-label="Search">
+                </form>
+                <div class="sugerencias-container">
+                    <div class="sugerencias" id="resultado_busqueda"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Grid con 3 cards-->
+    <div class="container text-center mt-3 mb-3">
+        <div class="row">
+            <div class="col">
+                <div class="card mismo-tamano">
+                    {% if libro_recomendado.portada %}
+                        <img src="{% static libro_recomendado.portada %}" class="card-img-top imagen_tarjeta" alt="Portada de {{ libro_recomendado.titulo }}">
+                    {% else %}
+                        <img src="{% static 'assets/libro_generico.jpg' %}" class="card-img-top imagen_tarjeta" alt="Imagen por defecto">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">Libro recomendado</h5>
+                        {% if libro_recomendado.subtitulo %}
+                            <p class="card-text justificado"><strong>Título: </strong>{{ libro_recomendado.titulo }}. {{ libro_recomendado.subtitulo }}</p>
+                        {% else %}
+                            <p class="card-text justificado"><strong>Título: </strong>{{ libro_recomendado.titulo }}</p>
+                        {% endif %}
+                        <p class="card-text justificado"><strong>Autor: </strong>{{ libro_recomendado.autor }}</p>
+                        <p class="card-text justificado"><strong>Categoría: </strong>{{ libro_recomendado.get_categoria_display }}</p>
+                        <a href="{% url 'ficha_libro' libro_recomendado.codigo %}" libro.id class="btn btn-primary">Ir al libro</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mismo-tamano">
+                    <img src="{% static 'assets/santiago.png' %}" class="card-img-top imagen_tarjeta" alt="Aportes de libros">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservas en Santiago</h5>
+                        <p class="card-text justificado">La Biblioteca El Choro Deivi está disponible para todas las comunas de Santiago. Prontamente nos expandiremos a todas las comunas de la Región Metropolitana. Además, en una próxima actualización pretendemos agregar el servicio de despacho a domicilio para las comunas cercanas a nuestra sede.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mismo-tamano">
+                    <img src="{% static 'assets/reservas.jpg' %}" class="card-img-top imagen_tarjeta" alt="PMBP">
+                    <div class="card-body">
+                        <h5 class="card-title">Biblioteca ECD 2.0</h5>
+                        <p class="card-text justificado">Desde el 12/07 podrás hacer reservas de más de un libro al mismo tiempo. De esta manera podrás disfrutar de muchos más libros de nuestra biblioteca. Revisa todos los títulos que tenemos disponible para ti y resérvalos. Nos comprometemos a tenerlos listos en 2 días para que los puedas retirar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/buscar.js' %}"></script>
+{% endblock %}

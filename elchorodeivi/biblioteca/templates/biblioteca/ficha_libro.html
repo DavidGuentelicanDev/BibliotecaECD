@@ -1,0 +1,58 @@
+{% extends 'base_ficha.html' %}
+
+{% block title %}
+    Ficha de libro
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <!--grid columna libro-->
+    <div class="container mt-3 mb-3 info-libro">
+        <div class="row">
+            <div class="card card_ficha" style="width: 18rem;">
+                {% if libro.portada %}
+                    <img src="{% static libro.portada %}" class="card-img-top mt-1" alt="Portada de {{ libro.titulo }}">
+                {% else %}
+                    <img src="{% static 'assets/libro_generico.jpg' %}" class="card-img-top" alt="Portada de {{ libro.titulo }}">
+                {% endif %}
+                <div class="card-body">
+                    {% if user.is_authenticated and user.is_staff == False %}
+                        {% if libro.estado_libro == 'D' %}
+                            <form method="post" id="form_agregarCarrito" action="{% url 'carrito_agregar' libro.codigo %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger w-100" id="btn_agregarCarrito" data-codigo="{{ libro.codigo }}">Agregar al carrito</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col card_ficha grid_ficha_libro_1">
+                <h5 title="text">Atributos</h5>
+                <dl class="row">
+                    <dt class="col-sm-3">Código</dt><dd class="col-sm-9"> {{ libro.codigo }} </dd>
+                    <dt class="col-sm-3">Título</dt><dd class="col-sm-9"> {{ libro.titulo }} </dd>
+                    {% if libro.subtitulo %}
+                        <dt class="col-sm-3">Subtítulo</dt><dd class="col-sm-9"> {{ libro.subtitulo }} </dd>
+                    {% endif %}
+                    <dt class="col-sm-3">Autor</dt><dd class="col-sm-9"> {{ libro.autor }} </dd>
+                    <dt class="col-sm-3">Editorial</dt><dd class="col-sm-9"> {{ libro.editorial }} </dd>
+                    <dt class="col-sm-3">Categoría</dt><dd class="col-sm-9"> {{ libro.get_categoria_display }} </dd> <!--asi se llama un dato con opciones predefinidas-->
+                    <dt class="col-sm-3">Estado</dt><dd class="col-sm-9"> {{ libro.get_estado_libro_display }} </dd>
+                </dl>
+            </div>
+            <div class="col card_ficha resena grid_ficha_libro_2">
+                <h5 title="text">Reseña del libro</h5>
+                {% if libro.resena %}
+                    <p class="resena"> {{ libro.resena }} </p>
+                {% else %}
+                    <p class="resena"> Sin reseña. </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/agregar_al_carrito.js' %}"></script>
+{% endblock %}

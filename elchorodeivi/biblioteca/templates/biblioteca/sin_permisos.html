@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Sin permisos
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="grid_registro_contenido mt-5 mb-5">
+                <div class="mt-3 mb-3 mx-3">
+                    <h1>¡Acceso Denegado!</h1>
+                    <p class="mt-2 mb-2">No tienes permiso para acceder a esta página.</p>
+                    <a type="button" class="btn btn-light mt-2" href="{% url 'index' %}">Ir al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src=""></script>
+{% endblock %}

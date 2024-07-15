@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Mis Reservas
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="container mt-5 mb-5 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-1">
+                    <h2>Mis Reservas</h2>
+                    {% if reservas %}
+                        <div class="card">
+                            <table class="table mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>N° de Reserva</th>
+                                        <th>Fecha de Reserva</th>
+                                        <th>Estado</th>
+                                        <th>Cantidad de Libros</th>
+                                        <th>Libros Reservados</th>
+                                        <th>Ver detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for reserva in reservas %}
+                                        <tr>
+                                            <td><strong>{{ reserva.numero_reserva }}</strong></td>
+                                            <td>{{ reserva.fec_reserva|date:"d/m/Y" }}</td>
+                                            <td>{{ reserva.get_estado_reserva_display }}</td>
+                                            <td>{{ reserva.cantidad_libros }}</td>
+                                            <td>
+                                                <ul>
+                                                    {% for detalle in reserva.detallereserva_set.all %}
+                                                        <li>{{ detalle.libro.titulo }}, {{ detalle.libro.autor }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </td>
+                                            <td><a type="button" class="btn btn-info" href="{% url 'reserva_detalle_cliente' reserva.pk %}">Ver detalle</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>No tienes reservas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src=""></script>
+{% endblock %}

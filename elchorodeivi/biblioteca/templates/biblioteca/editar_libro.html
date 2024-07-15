@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Editar libro
+{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <div class="background_registrarse">
+        <div class="grid_registro">
+            <div class="mt-5 mb-5 grid_registro_contenido">
+                <div class="mt-3 mb-3 mx-3">
+                    <h2 class="mt-3 mb-3">Editar libro</h2>
+                    <form id="form_editarLibro" method="POST" action="{% url 'libro_editar' libro.pk %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="mt-3 mb-3">
+                            <button type="submit" class="btn btn-danger" id="btn_editarLibro">Editar</button>
+                            <a type="button" class="btn btn-warning" href="{% url 'libros_mantenedor' %}">Volver</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% load static %}
+    <script src="{% static 'js/editar_libro.js' %}"></script>
+{% endblock %}
